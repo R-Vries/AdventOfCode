@@ -37,4 +37,5 @@ def unsafe(left, right, increasing):
 
 
 processor = Processor(parse, part1, part2, DAY)
+processor.run_test(2, 4)
 processor.execute(2)
