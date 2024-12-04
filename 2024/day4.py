@@ -2,6 +2,9 @@ from utils import Processor, parse_matrix
 import os
 DAY = os.path.basename(__file__)[3:-3]
 
+PART = 2
+TEST_RESULTS = [18, 9]
+
 
 def parse(file):
     return parse_matrix(file)
@@ -51,7 +54,8 @@ def check(i, j, direction, data):
 
 def find_mas(i, j, data):
     corners = list(map(lambda point: data[point[0]][point[1]], find_corners((i, j), data)))
-    return corners.count("M") == 2 and corners.count("S") == 2
+    return len(corners) == 4 and corners.count("M") == 2 and corners.count("S") == 2 \
+        and (not corners[0] == corners[3]) and (not corners[1] == corners[2])
 
 
 def find_corners(pos, data):
@@ -75,5 +79,5 @@ def part2(data):
 
 
 processor = Processor(parse, part1, part2, DAY)
-processor.run_test(2, 9)
-processor.execute(2)
+processor.run_test(PART, TEST_RESULTS[PART - 1])
+processor.execute(PART)
