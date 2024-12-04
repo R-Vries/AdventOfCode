@@ -49,30 +49,31 @@ def check(i, j, direction, data):
     return data[i+1*dy][j+1*dx] == 'M' and data[i+2*dy][j+2*dx] == 'A' and data[i+3*dy][j+3*dx] == 'S'
 
 
-# def find_neighbors(pos, data):
-#     # Define the 8 possible directions
-#     directions = [
-#         (-1, -1), (-1, 0), (-1, 1),
-#         (0, -1),            (0, 1),
-#         (1, -1), (1, 0), (1, 1)
-#     ]
-#
-#     neighbors = []
-#     rows, cols = len(data), len(data[0])
-#
-#     for dr, dc in directions:
-#         new_row, new_col = pos[0] + dr, pos[1] + dc
-#         # Check if new indices are within bounds
-#         if 0 <= new_row < rows and 0 <= new_col < cols:
-#             neighbors.append((new_row, new_col))  # Store valid neighbors
-#
-#     return neighbors
+def find_mas(i, j, data):
+    corners = list(map(lambda point: data[point[0]][point[1]], find_corners((i, j), data)))
+    return corners.count("M") == 2 and corners.count("S") == 2
+
+
+def find_corners(pos, data):
+    directions = [
+        (-1, -1),  (-1, 1), (1, -1),  (1, 1)
+    ]
+
+    corners = []
+    rows, cols = len(data), len(data[0])
+
+    for dr, dc in directions:
+        new_row, new_col = pos[0] + dr, pos[1] + dc
+        # Check if new indices are within bounds
+        if 0 <= new_row < rows and 0 <= new_col < cols:
+            corners.append((new_row, new_col))  # Store valid neighbors
+    return corners
 
 
 def part2(data):
-    pass
+    return sum(sum([1 for j, letter in enumerate(row) if letter == 'A' and find_mas(i, j, data)]) for i, row in enumerate(data))
 
 
 processor = Processor(parse, part1, part2, DAY)
-processor.run_test(1, 18)
-processor.execute(1)
+processor.run_test(2, 9)
+processor.execute(2)
