@@ -5,6 +5,7 @@ DAY = os.path.basename(__file__)[3:-3]
 PART = 1
 TEST_RESULTS = []
 
+
 def parse(file):
     pass
 
