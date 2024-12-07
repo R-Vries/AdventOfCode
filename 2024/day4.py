@@ -1,4 +1,5 @@
-from utils import Processor, parse_matrix
+from Processor import Processor
+from utils import parse_matrix
 import os
 DAY = os.path.basename(__file__)[3:-3]
 
