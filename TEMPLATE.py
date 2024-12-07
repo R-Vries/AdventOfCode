@@ -1,4 +1,4 @@
-from utils import Processor
+from Processor import Processor
 import os
 DAY = os.path.basename(__file__)[3:-3]
 
@@ -20,4 +20,4 @@ def part2(data):
 
 processor = Processor(parse, part1, part2, DAY)
 processor.run_test(PART, TEST_RESULTS[PART - 1])
-processor.execute()
+processor.execute(PART)
