@@ -9,7 +9,7 @@ def get_cookie():
     try:
         with open("../cookie.txt", "r") as file:
             return file.read()
-    except ValueError:
+    except FileNotFoundError:
         raise FileNotFoundError("No cookie file supplied. Create a file called 'cookie.txt' which contains the cookie")
 
 
