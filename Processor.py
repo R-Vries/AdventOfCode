@@ -58,7 +58,7 @@ class Processor:
         except FileNotFoundError:
             entered = self.generate_test()
             if entered:
-                return open(filename)
+                return open(filename, 'r')
             else:
                 os.remove(self.format_filename())
                 return False
@@ -82,7 +82,7 @@ class Processor:
             return open(filename)
         except FileNotFoundError:
             self.get_input_request()
-            return open(filename)
+            return open(filename, 'r')
 
     def get_input_request(self):
         f = open(f"inputs/input{str(self.day)}.txt", "w")
