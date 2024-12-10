@@ -1,5 +1,5 @@
 from Processor import Processor
-from utils import parse_matrix
+from utils import parse_matrix, in_map
 from itertools import combinations
 import os
 DAY = os.path.basename(__file__)[3:-3]
@@ -32,11 +32,6 @@ def part1(data):
             if in_map(lower_point, data):
                 antinodes.add(lower_point)
     return len(antinodes)
-
-
-def in_map(point, data):
-    row, col = point[0], point[1]
-    return col in range(len(data[0])) and row in range(len(data))
 
 
 def part2(data):

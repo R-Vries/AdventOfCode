@@ -11,6 +11,11 @@ def move(direction, point, amount=1):
     raise Exception("Undefined direction")
 
 
+def in_map(point, data):
+    row, col = point[0], point[1]
+    return col in range(len(data[0])) and row in range(len(data))
+
+
 def parse_matrix(input):
     return list(map(lambda x: list(x.strip()), list(input)))
 
