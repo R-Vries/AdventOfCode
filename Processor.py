@@ -14,11 +14,11 @@ def get_cookie():
 
 
 class Processor:
-    def __init__(self, parser, part1, part2, day, year=2024, parser2=None):
+    def __init__(self, day, parser, part1, part2=None, parser2=None, year=2024):
         self.parser = parser
         self.parser2 = parser if parser2 is None else parser2
-        self.part1 = part1
-        self.part2 = part2
+        self.part1 = part1 if part2 is not None else None
+        self.part2 = part1 if part2 is None else part2
         self.day = day
         self.year = year
         self.cookie = get_cookie().strip()
@@ -27,7 +27,7 @@ class Processor:
     def run_test(self, part: int, expected: int) -> None:
         test = self.get_test()
         if not test:
-            print("Skipping test..")
+            print("Skipping test...")
             return
         print(f"Running test for part {part}...")
         start = time.time()
@@ -36,16 +36,17 @@ class Processor:
         if result == expected:
             print(f'TEST SUCCESS ({elapsed} ms)')
         else:
-            print('TEST FAILED - RESULT WAS: ' + str(result))
+            print(f'TEST FAILED - RESULT WAS: {result}, EXPECTED: {expected}')
         return
 
     """Executes the parser and solver on the input file"""
-    def execute(self, part: int = 2) -> None:
-        print(f"Running solver for part {part}..")
+    def execute(self, part: int = 2) -> float:
+        print(f"Running solver for part {part}...")
         start = time.time()
         result = self.get_solver(part)(self.get_parser(part)(self.get_input()))
         elapsed = round((time.time() - start) * 1000, 1)
         print(f'Output: {result} ({elapsed} ms)')
+        return elapsed
 
     def format_filename(self) -> str:
         return f"tests/test{self.day}.txt"
@@ -66,14 +67,19 @@ class Processor:
     def generate_test(self):
         print("Enter the test. Press Ctrl-D to save it.")
         contains_lines = False
-        with open(self.format_filename(), "w") as file:
-            while True:
-                try:
-                    line = input()
-                    contains_lines = True
-                except EOFError:
-                    break
-                file.write(line + '\n')
+        try:
+            file = open(self.format_filename(), 'w')
+        except FileNotFoundError:
+            os.makedirs('tests')
+            file = open(self.format_filename(), 'w')
+        while True:
+            try:
+                line = input()
+                contains_lines = True
+            except EOFError:
+                break
+            file.write(line + '\n')
+        file.close()
         return contains_lines
 
     def get_input(self):
@@ -85,7 +91,11 @@ class Processor:
             return open(filename, 'r')
 
     def get_input_request(self):
-        f = open(f"inputs/input{str(self.day)}.txt", "w")
+        try:
+            f = open(f"inputs/input{str(self.day)}.txt", "w")
+        except FileNotFoundError:
+            os.makedirs('inputs')
+            f = open(f"inputs/input{str(self.day)}.txt", "w")
         response = requests.get(f"{URL}/{self.year}/day/{self.day}/input", cookies={"session": self.cookie})
         for line in response.text:
             f.write(line)
@@ -106,3 +116,20 @@ class Processor:
             return self.parser2
         else:
             raise Exception("Invalid part number. Use either 1 or 2")
+
+    def run(self):
+        print('############## DAY', self.day, '##############')
+        elapsed = 0
+        if self.part1 is not None:
+            elapsed += self.execute(1)
+        else:
+            print('No solver for part 1, skipping...')
+        elapsed += self.execute(2)
+        print('-----------------------------------')
+        if elapsed < 1000:
+            unit = 'ms'
+        else:
+            unit = 's'
+            elapsed = round(elapsed / 1000, 2)
+        print('Total elapsed time:', elapsed, unit)
+        print('###################################')

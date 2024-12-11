@@ -1,3 +1,5 @@
+import os
+
 def move(direction, point, amount=1):
     x, y = point
     if direction == 'R':

@@ -1,4 +1,4 @@
-from utils import Processor
+from Processor import Processor
 
 
 def parse(input):
@@ -41,5 +41,5 @@ def transform(string):
     return numbers
 
 
-p = Processor(parse, solve, 1)
-p.execute()
+p = Processor(1, parse, solve, year=2023)
+p.run_test(2, 281)

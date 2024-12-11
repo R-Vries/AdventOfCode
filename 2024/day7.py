@@ -42,6 +42,5 @@ def part2(data):
     return sum(answer for answer, numbers in data if correct(answer, numbers, True))
 
 
-processor = Processor(parse, part1, part2, DAY)
-processor.run_test(PART, TEST_RESULTS[PART - 1])
-processor.execute(PART)
+processor = Processor(DAY, parse, part1, part2)
+processor.run()

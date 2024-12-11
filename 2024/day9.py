@@ -78,8 +78,6 @@ def part2(data):
                 break
             j += 2
         i -= 2
-    print(data)
-    print(file_numbers)
     return checksum3(data, file_numbers)
 
 
@@ -98,6 +96,5 @@ def checksum3(data, file_numbers):
     return result
 
 
-processor = Processor(parse, part1, part2, DAY, parser2=parse2)
-processor.run_test(PART, TEST_RESULTS[PART - 1])
-processor.execute(PART)
+processor = Processor(DAY, parse, part1, part2, parser2=parse2)
+processor.run()

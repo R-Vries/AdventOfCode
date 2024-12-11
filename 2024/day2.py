@@ -37,6 +37,5 @@ def unsafe(left, right, increasing):
     return (increasing and right < left) or (not 1 <= abs(right - left) <= 3) or (not increasing and right > left)
 
 
-processor = Processor(parse, part1, part2, DAY)
-processor.run_test(2, 4)
-processor.execute(2)
+processor = Processor(DAY, parse, part1, part2)
+processor.run()

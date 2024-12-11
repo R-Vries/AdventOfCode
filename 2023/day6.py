@@ -1,4 +1,4 @@
-from utils import Processor
+from Processor import Processor
 
 
 def parse(input):
@@ -38,5 +38,5 @@ def solve(puzzle):
     return sum(1 for time_held in range(1, time) if calc_distance(time_held, time) > distance)
 
 
-p = Processor(parse2, solve, 6)
-p.execute()
+p = Processor(6, parse, solve)
+p.run()

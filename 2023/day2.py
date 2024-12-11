@@ -1,4 +1,4 @@
-from utils import Processor
+from Processor import Processor
 
 
 # Game 1: 7 red, 8 blue; 6 blue, 6 red, 2 green; 2 red, 6 green, 8 blue; 9 green, 2 red, 4 blue; 6 blue, 4 green
@@ -55,5 +55,5 @@ def solve(puzzle):
     return sum(minimum(round[1]) for round in puzzle)
 
 
-p = Processor(parse, solve, 2)
-p.execute()
+p = Processor(2, parse, solve, year=2023)
+p.run()

@@ -3,9 +3,6 @@ import os
 from utils import in_map
 DAY = os.path.basename(__file__)[3:-3]
 
-PART = 2
-TEST_RESULTS = [36, 81]
-
 
 def parse(file):
     topo_map, trail_heads = [], []
@@ -61,6 +58,5 @@ def part2(data):
     return paths
 
 
-processor = Processor(parse, part1, part2, DAY)
-processor.run_test(PART, TEST_RESULTS[PART - 1])
-processor.execute(PART)
+processor = Processor(DAY, parse, part1, part2)
+processor.run()

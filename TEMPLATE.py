@@ -18,6 +18,6 @@ def part2(data):
     pass
 
 
-processor = Processor(parse, part1, part2, DAY)
+processor = Processor(DAY, parse, part1, part2)
 processor.run_test(PART, TEST_RESULTS[PART - 1])
 processor.execute(PART)

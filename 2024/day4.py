@@ -79,6 +79,5 @@ def part2(data):
     return sum(sum([1 for j, letter in enumerate(row) if letter == 'A' and find_mas(i, j, data)]) for i, row in enumerate(data))
 
 
-processor = Processor(parse, part1, part2, DAY)
-processor.run_test(PART, TEST_RESULTS[PART - 1])
-processor.execute(PART)
+processor = Processor(DAY, parse, part1, part2)
+processor.run()

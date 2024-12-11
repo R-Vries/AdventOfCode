@@ -36,6 +36,5 @@ def part2(input):
     return result
 
 
-processor = Processor(parse, part1, part2, DAY)
-processor.run_test(1, 161)
-processor.execute(2)
+processor = Processor(DAY, parse1, part1, part2, parser2=parse2)
+processor.run()

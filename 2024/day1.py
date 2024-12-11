@@ -32,5 +32,5 @@ def part2(data):
     return result
 
 
-p = Processor(parse, part1, part2, DAY)
-p.execute(1)
+p = Processor(DAY, parse, part1, part2)
+p.run()

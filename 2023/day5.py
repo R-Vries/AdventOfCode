@@ -1,3 +1,6 @@
+from Processor import Processor
+
+
 def create_mapping(line):
     # ((source_start, source_end), increase)
     numbers = list(map(int, line.split(' ')))
@@ -70,16 +73,15 @@ def get_location(mappings, seed):
     return current
 
 
+def solve(input):
+    mappings, seeds = input
+    lowest = get_location(mappings, seeds[0][0])
+    for r in seeds:
+        for seed in r:
+            loc = get_location(mappings, seed)
+            lowest = loc if loc < lowest else lowest
+    return lowest
 
-f = open('inputs/input5.txt', 'r')
-mappings, seeds = parse(f)
-lowest = get_location(mappings, seeds[0][0])
-# for seed in seeds:
-#     loc = get_location(mappings, seed)
-#     lowest = loc if loc < lowest else lowest
-for r in seeds:
-    for seed in r:
-        loc = get_location(mappings, seed)
-        lowest = loc if loc < lowest else lowest
-    print("bingo!! ")
-print(lowest)
+
+p = Processor(5, parse, solve, year=2023)
+p.run()
