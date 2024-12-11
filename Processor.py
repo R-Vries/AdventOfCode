@@ -119,17 +119,26 @@ class Processor:
 
     def run(self):
         print('############## DAY', self.day, '##############')
-        elapsed = 0
+        part1_time = 0
         if self.part1 is not None:
-            elapsed += self.execute(1)
+            part1_time += self.execute(1)
         else:
             print('No solver for part 1, skipping...')
-        elapsed += self.execute(2)
+        part2_time = self.execute(2)
+        total = part1_time + part2_time
         print('-----------------------------------')
-        if elapsed < 1000:
-            unit = 'ms'
-        else:
-            unit = 's'
-            elapsed = round(elapsed / 1000, 2)
-        print('Total elapsed time:', elapsed, unit)
+        total = round(total, 1)
+        print('Total elapsed time:', total, 'ms')
         print('###################################')
+        self.write(part1_time, part2_time, total)
+
+    def write(self, part1, part2, total):
+        with open('results.md', 'r') as file:
+            data = file.readlines()
+        row = f'| {self.day} | {part1} | {part2} | {total} |\n'
+        try:
+            data[int(self.day) + 1] = row
+        except IndexError:
+            data.append(row)
+        with open('results.md', 'w') as file:
+            file.writelines(data)
