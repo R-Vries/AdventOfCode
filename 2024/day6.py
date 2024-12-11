@@ -39,7 +39,6 @@ def get_start(data):
 
 
 def part2(data):
-    # Detect loop by keeping track of list of visited positions with direction? Same pos/dir means loop?
     loop_points = 0
     on_path = list(dict.fromkeys(find_path(data)))
     start = get_start(data)
@@ -51,19 +50,18 @@ def part2(data):
         direction = 'U'
         while valid:
             while data[current[0]][current[1]] != '#' and current != (i, j):
-                if current in visited:
-                    if direction in visited[current]:
-                        loop_points += 1
-                        valid = False
-                        break
-                    else:
-                        visited[current].add(direction)
-                else:
-                    visited.update({current: set(direction)})
                 current = move(direction, current)
                 if not in_map(current, data):
                     valid = False
                     break
+            if current in visited:
+                if direction in visited[current]:
+                    loop_points += 1
+                    break
+                else:
+                    visited[current].add(direction)
+            else:
+                visited.update({current: set(direction)})
             current = move(OPPOSITE_DIR[direction], current)
             direction = NEXT_DIR[direction]
     return loop_points
@@ -71,4 +69,5 @@ def part2(data):
 
 processor = Processor(DAY, parse, part1, part2)
 processor.run_test(PART, TEST_RESULTS[PART - 1])
-processor.execute(PART)
+# processor.execute(PART)
+processor.run()
