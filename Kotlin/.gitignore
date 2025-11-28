@@ -1,0 +1,14 @@
+### IntelliJ IDEA ###
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+.idea/
+*.iml
+*.ipr
+*.iws
+
+### Advent of Code Cookie
+/cookie.txt
+
+### Kotlin ###
+.kotlin
