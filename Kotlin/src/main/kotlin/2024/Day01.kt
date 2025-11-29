@@ -33,5 +33,5 @@ object Day01: Solver<Pair<List<Int>, List<Int>>>(2024, 1) {
 }
 
 fun main() {
-    Day01.runTest(1, 11)
+    Day01.run()
 }
