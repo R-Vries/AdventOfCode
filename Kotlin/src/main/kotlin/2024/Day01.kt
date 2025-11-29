@@ -33,6 +33,5 @@ class Day01: Solver<Pair<List<Int>, List<Int>>>(2024, 1) {
 }
 
 fun main() {
-    val solver = Day01()
-    solver.solve(2)
+    Day01().run()
 }
