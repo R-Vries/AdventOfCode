@@ -18,6 +18,7 @@ import kotlin.time.measureTimedValue
  * @param T the datastructure that will be used for solving this puzzle
  * @property year the year event in which this puzzle takes place
  * @property day the day that this solver will solve
+ * @constructor creates a solver for the given [year] and [day]
  */
 abstract class Solver<T>(val year: Int, val day: Int) {
     /** Day as string, possibly padded with a 0 */
@@ -26,14 +27,7 @@ abstract class Solver<T>(val year: Int, val day: Int) {
     private val input: List<String> = readInput()
 
     /** Read the test file once at initialization */
-    private val test: List<String> =
-        try {
-            readTest()
-        } catch (_: java.nio.file.NoSuchFileException) {
-            println("Test file not found")
-            fetchTest()
-            readTest()
-        }
+    private val test: List<String> = readTest()
 
     /**
      * Parses the raw input lines into a structured data type used by this day's solver.
@@ -149,20 +143,25 @@ abstract class Solver<T>(val year: Int, val day: Int) {
     private fun formatDayString(day: Int): String =
         "%02d".format(day)
 
+    /** Get the lines from the input. Fetches the input from the website if the file doesn't exist yet */
     private fun readInput(): List<String> {
         val inputFile = Path("src/main/resources/$year/inputs/day$dayString.txt")
-
         if (!inputFile.exists()) {
             println("Input file not found. Downloading from AoC...")
             fetchInput()
         }
-
         return inputFile.readLines()
     }
 
+    /** Get the lines in the test file */
+    private fun readTest(): List<String> {
+        val inputFile = Path("src/main/resources/$year/tests/day$dayString.txt")
+        if (!inputFile.exists()) {
+            fetchTest()
+        }
+        return inputFile.readLines()
+    }
 
-    private fun readTest() =
-        Path("src/main/resources/$year/tests/day$dayString.txt").readLines()
     /** Fetches the file from the Advent of Code website */
     private fun fetchInput() {
         val cookieFile = File("../cookie.txt")
@@ -188,8 +187,9 @@ abstract class Solver<T>(val year: Int, val day: Int) {
         println("Downloaded input to ${targetFile.path}")
     }
 
+    /** Get the test input through the command line. Also saves it to a file */
     private fun fetchTest() {
-        println("Paste test input below. End with an empty line:")
+        println("Paste test input below. End with an empty line:".toYellow())
 
         val lines = mutableListOf<String>()
         while (true) {
@@ -203,9 +203,10 @@ abstract class Solver<T>(val year: Int, val day: Int) {
         // Write all lines to file
         targetFile.writeText(lines.joinToString("\n"))
 
-        println("Input saved to ${targetFile.path}")
+        println("Input saved to ${targetFile.path}".toYellow())
     }
 
+    /** Write the elapsed times of both parts to the results markdown file */
     private fun updateTimes(part1: Long, part2: Long) {
         val file = Path("results/$year.md")
 
@@ -239,5 +240,4 @@ abstract class Solver<T>(val year: Int, val day: Int) {
         }
         file.writeText(lines.joinToString("\n"))
     }
-
 }

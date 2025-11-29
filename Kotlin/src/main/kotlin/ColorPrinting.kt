@@ -11,3 +11,8 @@ fun String.toBold(): String {
     val bold = "\u001b[1;97m"
     return bold + this + reset
 }
+
+fun String.toYellow(): String {
+    val yellow = "\u001b[33m"
+    return yellow + this + reset
+}
