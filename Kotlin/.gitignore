@@ -18,6 +18,5 @@ out/
 .kotlin
 
 ## Advent of Code
-/src/main/resources/inputs/
-/src/main/resources/tests/
+**/inputs/
 cookie.txt
