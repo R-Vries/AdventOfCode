@@ -143,7 +143,7 @@ abstract class Solver<T>(val year: Int, val day: Int) {
 
     /** Fetches the file from the Advent of Code website */
     private fun fetchInput() {
-        val cookieFile = File("cookie.txt")
+        val cookieFile = File("../cookie.txt")
         require(cookieFile.exists()) {
             "Missing cookie.txt in project root. Place your AoC session cookie inside."
         }
