@@ -1,4 +1,4 @@
-package org.example
+package aoc
 
 const val reset = "\u001b[0m"
 

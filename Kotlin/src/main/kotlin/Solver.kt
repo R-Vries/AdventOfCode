@@ -1,5 +1,4 @@
-package org.example
-
+package aoc
 import java.io.File
 import java.net.HttpURLConnection
 import java.net.URI

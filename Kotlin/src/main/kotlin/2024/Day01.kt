@@ -1,6 +1,6 @@
-package org.example.`2024`
+package aoc.`2024`
 
-import org.example.Solver
+import aoc.Solver
 import kotlin.math.abs
 
 object Day01: Solver<Pair<List<Int>, List<Int>>>(2024, 1) {
