@@ -139,7 +139,7 @@ abstract class Solver<T>(val year: Int, val day: Int) {
 
     /** Formats the day to make it 2 numbers*/
     private fun formatDayString(day: Int): String =
-        if (day < 10) "0$day" else "$day"
+        "%02d".format(day)
 
     /** Fetches the file from the Advent of Code website */
     private fun fetchInput() {
