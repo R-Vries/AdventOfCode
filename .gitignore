@@ -22,3 +22,4 @@ bin/
 ### Advent of Code ###
 cookie.txt
 inputs/
+tests/
