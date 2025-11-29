@@ -74,7 +74,7 @@ abstract class Solver<T>(val year: Int, val day: Int) {
      * This method is intended as the main entry point for running a day's solution.
      */
     fun run() {
-        println("############ DAY $dayString ############")
+        println("############ DAY $dayString ###########")
         val part1Time = solve(1)
         val part2Time = solve(2)
         val total = part1Time + part2Time
