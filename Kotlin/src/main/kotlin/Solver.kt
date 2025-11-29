@@ -111,7 +111,8 @@ abstract class Solver<T>(val year: Int, val day: Int) {
         check(actual == expected) {
             "Test failed for part $part ($year): expected $expected, got $actual"
         }
-        println("Test passed for part $part")
+
+        println("Test passed for part $part".toGreen())
     }
 
     /**
