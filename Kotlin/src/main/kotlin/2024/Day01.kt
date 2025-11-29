@@ -3,7 +3,7 @@ package org.example.`2024`
 import org.example.Solver
 import kotlin.math.abs
 
-class Day01: Solver<Pair<List<Int>, List<Int>>>(2024, 1) {
+object Day01: Solver<Pair<List<Int>, List<Int>>>(2024, 1) {
 
     override fun parse(input: List<String>): Pair<List<Int>, List<Int>> {
         return input
@@ -33,5 +33,5 @@ class Day01: Solver<Pair<List<Int>, List<Int>>>(2024, 1) {
 }
 
 fun main() {
-    Day01().runTest(1, 11)
+    Day01.runTest(1, 11)
 }
