@@ -3,8 +3,8 @@ plugins {
     id("org.jetbrains.dokka") version "2.0.0"
 }
 
-group = "org.example"
-version = "1.0-SNAPSHOT"
+group = "aoc"
+version = "2025"
 
 repositories {
     mavenCentral()

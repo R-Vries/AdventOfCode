@@ -5,6 +5,7 @@ import java.net.URI
 import kotlin.io.path.Path
 import kotlin.io.path.exists
 import kotlin.io.path.readLines
+import kotlin.io.path.writeText
 import kotlin.time.measureTimedValue
 
 /**
@@ -86,6 +87,7 @@ abstract class Solver<T>(val year: Int, val day: Int) {
         println(("-------------------------------\n" +
                 "Total elapsed time: $total ms\n" +
                 "###############################").toBold())
+        updateTimes(part1Time, part2Time)
     }
 
     /**
@@ -203,4 +205,39 @@ abstract class Solver<T>(val year: Int, val day: Int) {
 
         println("Input saved to ${targetFile.path}")
     }
+
+    private fun updateTimes(part1: Long, part2: Long) {
+        val file = Path("results/$year.md")
+
+        // Read all lines, or start with header if file does not yet exist
+        val lines = if (file.exists()) file.readLines().toMutableList()
+        else mutableListOf(
+            "| Day | Part 1 (ms) | Part 2 (ms) | Total (ms) |",
+            "|-----|-------------|-------------|------------|"
+        )
+
+        val dayString = day.toString()
+        val total = part1 + part2
+
+        val newRow = "| $dayString | $part1 | $part2 | $total |"
+
+        val existingIndex = lines.indexOfFirst { it.startsWith("| $dayString |") }
+
+        if (existingIndex != -1) {
+            lines[existingIndex] = newRow
+        } else {
+            // Insert row in correct place (sorted by day)
+            val insertIndex = lines
+                .drop(2)                         // skip header
+                .indexOfFirst {
+                    val d = it.split("|")[1].trim().toInt()
+                    day < d
+                }
+                .let { if (it == -1) lines.size else it + 2 }
+
+            lines.add(insertIndex, newRow)
+        }
+        file.writeText(lines.joinToString("\n"))
+    }
+
 }
