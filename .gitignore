@@ -1,0 +1,23 @@
+### Python ###
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+venv/
+.env
+
+### IntelliJ / Gradle ###
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+.gradle/
+build/
+
+### Kotlin ###
+.kotlin
+
+### Advent of Code ###
+cookie.txt
+inputs/
