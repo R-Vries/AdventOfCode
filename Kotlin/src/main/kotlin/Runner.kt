@@ -32,47 +32,23 @@ class Runner<T>(
     fun run() {
         val input = io.readInput()
 
-        println("######## DAY ${"%02d".format(day)} ########")
+        println("######## DAY ${"%02d".format(day)} ########".toBold())
 
         val data = solver.parse(input)
 
         val t1 = time { solver.part1(data) }
-        println("Part 1: ${t1.result} (${t1.ms} ms)")
+        println("Part 1: ${t1.result} (${t1.ms} ms)".toBold())
 
         val t2 = time { solver.part2(data) }
-        println("Part 2: ${t2.result} (${t2.ms} ms)")
+        println("Part 2: ${t2.result} (${t2.ms} ms)".toBold())
+
+        println("------------------------".toBold())
+        val total = t1.ms + t2.ms
+        println("Total elapsed time: $total".toBold())
+        println("########################".toBold())
 
         io.updateTimes(t1.ms, t2.ms)
     }
-
-//    /**
-//     * Executes the solver for the given puzzle part using the full input,
-//     * printing the result and measuring execution time.
-//     *
-//     * The method selects the appropriate part function, parses the input,
-//     * executes the solver, prints both the result and execution duration,
-//     * and returns the elapsed time in milliseconds.
-//     *
-//     * @param part The puzzle part to solve (1 or 2).
-//     * @return The execution time in milliseconds.
-//     */
-//    fun solve(part: Int): Long {
-//        println("Running solver for part $part...".toBold())
-//        val (result, elapsed) = measureTimedValue {
-//            getPartSolver(part)(solver.parse(input))
-//        }.let {
-//                (value, duration) -> value to duration.inWholeMilliseconds
-//        }
-//        println("The result was $result ($elapsed ms)".toBold())
-//        return elapsed
-//    }
-//
-//    /** Find the right solver for the provided part */
-//    private fun getPartSolver(part: Int): (*) -> Int = when (part) {
-//        1 -> solver::part1
-//        2 -> solver::part2
-//        else -> error("Invalid part number ($part)")
-//    }
 
     private inline fun <T> time(block: () -> T): Timed<T> {
         val (result, duration) = measureTimedValue(block)
