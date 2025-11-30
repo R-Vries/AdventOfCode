@@ -3,30 +3,25 @@ package aoc.`2022`
 import aoc.Solver
 
 object Day01: Solver<List<List<Int>>>(2022, 1) {
-    override fun parse(input: List<String>): List<List<Int>> {
-        var currentElf = mutableListOf<Int>()
-        val result = mutableListOf<List<Int>>()
-        for (line in input) {
-            if (line.isNotEmpty()) {
-                currentElf.add(line.toInt())
+
+    override fun parse(input: List<String>): List<List<Int>> =
+        input.fold(mutableListOf<MutableList<Int>>(mutableListOf())) { acc, line ->
+            if (line.isEmpty()) {
+                acc.add(mutableListOf())
             } else {
-                result.add(currentElf)
-                currentElf = mutableListOf()
+                acc.last().add(line.toInt())
             }
+            acc
         }
-        result.add(currentElf)
-        return result
-    }
 
     override fun part1(data: List<List<Int>>): Int =
         data.maxOf { it.sum() }
 
-
-    override fun part2(data: List<List<Int>>): Int {
-        val sorted = data.map { it.sum() }.sortedDescending()
-        return sorted[0] + sorted[1] + sorted[2]
-    }
-
+    override fun part2(data: List<List<Int>>): Int =
+        data.map { it.sum() }
+            .sortedDescending()
+            .take(3)
+            .sum()
 }
 
 fun main() {
