@@ -1,9 +1,9 @@
 package aoc.`2024`
 
-import aoc.Solver
+import aoc.SolverOld
 import kotlin.math.abs
 
-object Day02: Solver<List<List<Int>>>(2024, 2) {
+object Day02: SolverOld<List<List<Int>>>(2024, 2) {
     override fun parse(input: List<String>): List<List<Int>> {
         return input.map { line -> line
             .split(" ")

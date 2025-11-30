@@ -1,9 +1,9 @@
 package aoc.`2024`
 
-import aoc.Solver
+import aoc.SolverOld
 import kotlin.math.abs
 
-object Day01: Solver<Pair<List<Int>, List<Int>>>(2024, 1) {
+object Day01: SolverOld<Pair<List<Int>, List<Int>>>(2024, 1) {
 
     override fun parse(input: List<String>): Pair<List<Int>, List<Int>> {
         return input

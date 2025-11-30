@@ -1,8 +1,8 @@
 package aoc.`2022`
 
-import aoc.Solver
+import aoc.SolverOld
 
-object Day01: Solver<List<List<Int>>>(2022, 1, 24000, 45000) {
+object Day01: SolverOld<List<List<Int>>>(2022, 1, 24000, 45000) {
 
     override fun parse(input: List<String>): List<List<Int>> =
         input.fold(mutableListOf<MutableList<Int>>(mutableListOf())) { acc, line ->
