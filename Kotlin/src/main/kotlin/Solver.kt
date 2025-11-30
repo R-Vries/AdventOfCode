@@ -20,8 +20,14 @@ import kotlin.time.measureTimedValue
  * @property day the day that this solver will solve
  * @constructor creates a solver for the given [year] and [day]
  */
-abstract class Solver<T>(val year: Int, val day: Int) {
-    //TODO add a constructor with test values
+abstract class Solver<T>(
+    val year: Int,
+    val day: Int,
+    val test1Answer: Int?,
+    val test2Answer: Int?
+) {
+    constructor(year: Int, day: Int) : this(year, day, null, null)
+
     /** Day as string, possibly padded with a 0 */
     private val dayString = formatDayString(day)
     /** Read the input file once at initialization */
@@ -109,6 +115,19 @@ abstract class Solver<T>(val year: Int, val day: Int) {
         }
 
         println("Test passed for part $part".toGreen())
+    }
+
+    /** Runs both tests. Assumes the test answers are known
+     *
+     * @throws IllegalStateException when the test answers are not known to the class
+     */
+    fun runTests() {
+        val t1 = test1Answer ?: error("No test answers provided for day $day part 1.")
+        val t2 = test2Answer ?: error("No test answers provided for day $day part 2.")
+
+        println("Running stored tests for day $day...")
+        runTest(1, t1)
+        runTest(2, t2)
     }
 
     /**

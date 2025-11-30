@@ -33,4 +33,4 @@ object Day02: Solver<List<List<Int>>>(2024, 2) {
     }
 }
 
-fun main() = Day02.runTest(2, 4)
+fun main() = Day02.run()

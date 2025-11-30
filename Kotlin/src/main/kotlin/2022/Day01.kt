@@ -2,7 +2,7 @@ package aoc.`2022`
 
 import aoc.Solver
 
-object Day01: Solver<List<List<Int>>>(2022, 1) {
+object Day01: Solver<List<List<Int>>>(2022, 1, 24000, 45000) {
 
     override fun parse(input: List<String>): List<List<Int>> =
         input.fold(mutableListOf<MutableList<Int>>(mutableListOf())) { acc, line ->
@@ -24,6 +24,4 @@ object Day01: Solver<List<List<Int>>>(2022, 1) {
             .sum()
 }
 
-fun main() {
-    Day01.run()
-}
+fun main() = Day01.runTests()
