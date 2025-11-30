@@ -24,4 +24,10 @@ abstract class Solver<T> {
      * @return The result for part 2.
      */
     abstract fun part2(data: T): Int
+
+    fun solvePart1(input: List<String>): Int =
+        part1(parse(input))
+
+    fun solvePart2(input: List<String>): Int =
+        part2(parse(input))
 }

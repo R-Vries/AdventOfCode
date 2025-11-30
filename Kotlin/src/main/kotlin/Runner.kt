@@ -2,10 +2,10 @@ package aoc
 
 import kotlin.time.measureTimedValue
 
-class Runner<T>(
+class Runner(
     val year: Int,
     val day: Int,
-    val solver: Solver<T>,
+    val solver: Solver<*>,
     val io: IOManager
 ) {
     /**
@@ -34,12 +34,10 @@ class Runner<T>(
 
         println("######## DAY ${"%02d".format(day)} ########".toBold())
 
-        val data = solver.parse(input)
-
-        val t1 = time { solver.part1(data) }
+        val t1 = time { solver.solvePart1(input) }
         println("Part 1: ${t1.result} (${t1.ms} ms)".toBold())
 
-        val t2 = time { solver.part2(data) }
+        val t2 = time { solver.solvePart2(input) }
         println("Part 2: ${t2.result} (${t2.ms} ms)".toBold())
 
         println("------------------------".toBold())
