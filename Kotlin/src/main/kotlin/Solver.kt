@@ -21,6 +21,7 @@ import kotlin.time.measureTimedValue
  * @constructor creates a solver for the given [year] and [day]
  */
 abstract class Solver<T>(val year: Int, val day: Int) {
+    //TODO add a constructor with test values
     /** Day as string, possibly padded with a 0 */
     private val dayString = formatDayString(day)
     /** Read the input file once at initialization */
@@ -189,22 +190,32 @@ abstract class Solver<T>(val year: Int, val day: Int) {
 
     /** Get the test input through the command line. Also saves it to a file */
     private fun fetchTest() {
-        println("Paste test input below. End with an empty line:".toYellow())
+        println("Paste test input below. End with two empty lines:".toYellow())
 
         val lines = mutableListOf<String>()
+        var emptyCount = 0
+
         while (true) {
-            val line = readLine() ?: break
-            if (line.isEmpty()) break
+            val line = readlnOrNull() ?: break
+
+            if (line.isEmpty()) {
+                emptyCount++
+                if (emptyCount >= 2) break
+            } else {
+                emptyCount = 0
+            }
+
             lines += line
         }
+
         val targetFile = File("src/main/resources/$year/tests/day$dayString.txt")
         targetFile.parentFile.mkdirs()
 
-        // Write all lines to file
         targetFile.writeText(lines.joinToString("\n"))
 
         println("Input saved to ${targetFile.path}".toYellow())
     }
+
 
     /** Write the elapsed times of both parts to the results markdown file */
     private fun updateTimes(part1: Long, part2: Long) {
