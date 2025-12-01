@@ -1,9 +1,11 @@
 package aoc.`2024`
 
+import aoc.IOManager
+import aoc.Runner
 import aoc.Solver
 import kotlin.math.abs
 
-object Day01: Solver<Pair<List<Int>, List<Int>>>(2024, 1) {
+object Day01: Solver<Pair<List<Int>, List<Int>>>() {
 
     override fun parse(input: List<String>): Pair<List<Int>, List<Int>> {
         return input
@@ -33,5 +35,7 @@ object Day01: Solver<Pair<List<Int>, List<Int>>>(2024, 1) {
 }
 
 fun main() {
-    Day01.run()
+    val io = IOManager(2024, 1)
+    val runner = Runner(Day01, io)
+    runner.run()
 }

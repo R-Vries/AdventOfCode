@@ -1,8 +1,11 @@
 package aoc.`2022`
 
+import aoc.IOManager
+import aoc.Runner
 import aoc.Solver
+import aoc.Tester
 
-object Day01: Solver<List<List<Int>>>(2022, 1, 24000, 45000) {
+object Day01: Solver<List<List<Int>>>() {
 
     override fun parse(input: List<String>): List<List<Int>> =
         input.fold(mutableListOf<MutableList<Int>>(mutableListOf())) { acc, line ->
@@ -24,4 +27,11 @@ object Day01: Solver<List<List<Int>>>(2022, 1, 24000, 45000) {
             .sum()
 }
 
-fun main() = Day01.runTests()
+fun main() {
+    val io = IOManager(2022, 1)
+    val runner = Runner(Day01, io)
+    val tester = Tester(Day01, io, 24000, null)
+    tester.printInput()
+    tester.runTests()
+    runner.run()
+}
