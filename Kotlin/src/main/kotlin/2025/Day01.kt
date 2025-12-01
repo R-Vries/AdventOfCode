@@ -1,8 +1,10 @@
 package aoc.`2025`
 
+import aoc.IOManager
+import aoc.Runner
 import aoc.Solver
 
-object Day01: Solver<List<Move>>(2025, 1, 3, 16) {
+object Day01: Solver<List<Move>>() {
     override fun parse(input: List<String>): List<Move> =
         input.map { line -> Move(line.take(1), line.substring(1).toInt()) }
 
@@ -51,6 +53,7 @@ object Day01: Solver<List<Move>>(2025, 1, 3, 16) {
 data class Move(val direction: String, val amount: Int)
 
 fun main() {
-    Day01.runTests()
-    Day01.run()
+    val io = IOManager(2025, 1)
+    val runner = Runner(Day01, io)
+    runner.run()
 }
