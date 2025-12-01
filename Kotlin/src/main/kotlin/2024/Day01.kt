@@ -36,6 +36,6 @@ object Day01: Solver<Pair<List<Int>, List<Int>>>() {
 
 fun main() {
     val io = IOManager(2024, 1)
-    val runner = Runner(2024, 1, Day01, io)
+    val runner = Runner(Day01, io)
     runner.run()
 }

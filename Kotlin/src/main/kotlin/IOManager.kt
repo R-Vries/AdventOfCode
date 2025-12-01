@@ -7,6 +7,17 @@ import kotlin.io.path.exists
 import kotlin.io.path.readLines
 import kotlin.io.path.writeText
 
+/**
+ * Handles all file and input/output operations for a given Advent of Code year/day.
+ *
+ * Responsibilities:
+ * - reading puzzle input and test input from the resources directory
+ * - fetching missing input from AoC when needed
+ * - writing and updating benchmark results in a Markdown table
+ * - saving manually pasted test input
+ *
+ * All filesystem paths are constructed from year/day, and missing folders are created automatically.
+ */
 class IOManager(val year: Int, val day: Int) {
     private val dayString = "%02d".format(day)
 

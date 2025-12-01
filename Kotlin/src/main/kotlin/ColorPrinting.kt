@@ -16,3 +16,8 @@ fun String.toYellow(): String {
     val yellow = "\u001b[33m"
     return yellow + this + reset
 }
+
+fun String.toRed(): String {
+    val red = "\u001b[31m"
+    return red + this + reset
+}

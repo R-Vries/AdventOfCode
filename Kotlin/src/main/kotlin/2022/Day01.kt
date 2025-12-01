@@ -3,6 +3,7 @@ package aoc.`2022`
 import aoc.IOManager
 import aoc.Runner
 import aoc.Solver
+import aoc.Tester
 
 object Day01: Solver<List<List<Int>>>() {
 
@@ -28,6 +29,9 @@ object Day01: Solver<List<List<Int>>>() {
 
 fun main() {
     val io = IOManager(2022, 1)
-    val runner = Runner(2022, 1, Day01, io)
+    val runner = Runner(Day01, io)
+    val tester = Tester(Day01, io, 24000, null)
+    tester.printInput()
+    tester.runTests()
     runner.run()
 }

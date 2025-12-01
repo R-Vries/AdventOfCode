@@ -2,9 +2,18 @@ package aoc
 
 import kotlin.time.measureTimedValue
 
+/**
+ * Executes a solver for a specific Advent of Code year/day.
+ *
+ * Responsibilities:
+ * - reading the puzzle input via the IO manager
+ * - invoking `parse`, `part1`, and `part2` on the solver
+ * - timing both parts and printing a formatted summary
+ * - forwarding timing results to the IO manager for persistence
+ *
+ * This class contains no puzzle logic; it only coordinates input, execution, and output.
+ */
 class Runner(
-    val year: Int,
-    val day: Int,
     val solver: Solver<*>,
     val io: IOManager
 ) {
@@ -18,10 +27,8 @@ class Runner(
      * Output format example:
      * ```
      * ########### DAY 01 ############
-     * Running solver for part 1...
-     * The result was 12345 (15 ms)
-     * Running solver for part 2...
-     * The result was 67890 (42 ms)
+     * Part 1: 12345 (15 ms)
+     * Part 2: 67890 (42 ms)
      * -------------------------------
      * Total elapsed time: 57 ms
      * ###############################
@@ -32,7 +39,7 @@ class Runner(
     fun run() {
         val input = io.readInput()
 
-        println("######## DAY ${"%02d".format(day)} ########".toBold())
+        println("######## DAY ${"%02d".format(io.day)} ########".toBold())
 
         val t1 = time { solver.solvePart1(input) }
         println("Part 1: ${t1.result} (${t1.ms} ms)".toBold())
