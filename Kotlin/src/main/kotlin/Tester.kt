@@ -21,8 +21,8 @@ package aoc
 class Tester(
     private val solver: Solver<*>,
     private val io: IOManager,
-    private val test1Answer: Int?,
-    private val test2Answer: Int?
+    private val test1Answer: Number?,
+    private val test2Answer: Number?
 ) {
 
     /**
@@ -44,7 +44,7 @@ class Tester(
         println("Parsed data: $parsed".toBold())
     }
 
-    private fun runTest(part: Int, expected: Int?) {
+    private fun runTest(part: Int, expected: Number?) {
         if (expected == null) {
             println("Part $part test: skipped (no expected answer provided)".toYellow())
             return

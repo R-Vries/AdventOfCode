@@ -24,7 +24,7 @@ abstract class Solver<T> {
      * @param data The parsed input returned by [parse].
      * @return The result for part 1.
      */
-    abstract fun part1(data: T): Int
+    abstract fun part1(data: T): Number
 
     /**
      * Computes the solution to part 2 of the puzzle.
@@ -32,7 +32,7 @@ abstract class Solver<T> {
      * @param data The parsed input returned by [parse].
      * @return The result for part 2.
      */
-    abstract fun part2(data: T): Int
+    abstract fun part2(data: T): Number
 
     /**
      * Parses the given input and returns the solution for part 1.
@@ -40,7 +40,7 @@ abstract class Solver<T> {
      * @param input Raw puzzle input lines.
      * @return The computed answer for part 1.
      */
-    fun solvePart1(input: List<String>): Int =
+    fun solvePart1(input: List<String>): Number =
         part1(parse(input))
 
     /**
@@ -49,6 +49,6 @@ abstract class Solver<T> {
      * @param input Raw puzzle input lines.
      * @return The computed answer for part 2.
      */
-    fun solvePart2(input: List<String>): Int =
+    fun solvePart2(input: List<String>): Number =
         part2(parse(input))
 }

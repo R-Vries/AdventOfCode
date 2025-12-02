@@ -49,7 +49,7 @@ class Runner(
 
         println("------------------------".toBold())
         val total = t1.ms + t2.ms
-        println("Total elapsed time: $total".toBold())
+        println("Total elapsed time: $total ms".toBold())
         println("########################".toBold())
 
         io.updateTimes(t1.ms, t2.ms)
@@ -59,5 +59,6 @@ class Runner(
         val (result, duration) = measureTimedValue(block)
         return Timed(result, duration.inWholeMilliseconds)
     }
+
+    data class Timed<T>(val result: T, val ms: Long)
 }
-data class Timed<T>(val result: T, val ms: Long)
