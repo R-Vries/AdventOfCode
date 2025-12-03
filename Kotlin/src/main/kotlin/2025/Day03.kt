@@ -9,49 +9,31 @@ object Day03: Solver<List<List<Int>>>() {
     override fun parse(input: List<String>): List<List<Int>> =
         input.map { it.map { i -> i.digitToInt() } }
 
-
-    override fun part1(data: List<List<Int>>): Number {
-        var result = 0
-        for (bank in data) {
-            var max = bank.max()
-            val maxIndex = bank.indexOf(max)
-            var second: Int
-            if (maxIndex == bank.lastIndex) {
-                second = max
-                max = bank.take(bank.lastIndex).max()
-
-            } else {
-                second = bank.drop(maxIndex + 1).max()
-            }
-            result += "$max$second".toInt()
+    override fun part1(data: List<List<Int>>): Number =
+        data.sumOf { bank ->
+            findHighest(bank, 2)
         }
-        return result
-    }
 
-    override fun part2(data: List<List<Int>>): Number {
-        var result = 0L
-        for (bank in data) {
-            var joltage = ""
-            var bankCopy = bank.toMutableList()
-            repeat(12) {
-                var max = bankCopy.max()
-                var maxIndex = bankCopy.indexOf(max)
-                while (maxIndex + 11 - it > bankCopy.lastIndex) {
-                    max = bankCopy.filter { it < max }.max()
-                    maxIndex = bankCopy.indexOf(max)
-                }
-                try {
-                    bankCopy = bankCopy.drop(maxIndex + 1) as MutableList<Int>
-                } catch (e: ClassCastException) {
-                    //This is fine
-                }
-                joltage += max.toString()
-            }
-            result += joltage.toLong()
+    override fun part2(data: List<List<Int>>): Number =
+        data.sumOf { bank ->
+            findHighest(bank, 12)
         }
-        return result
-    }
 
+    private fun findHighest(bank: List<Int>, amount: Int): Long {
+        val sb = StringBuilder()
+        var bankCopy = bank
+        repeat(amount) {
+            var max = bankCopy.max()
+            var maxIndex = bankCopy.indexOf(max)
+            while (maxIndex + amount - 1 - it > bankCopy.lastIndex) {
+                max = bankCopy.filter { it < max }.max()
+                maxIndex = bankCopy.indexOf(max)
+            }
+            bankCopy = bankCopy.drop(maxIndex + 1)
+            sb.append(max)
+        }
+        return sb.toString().toLong()
+    }
 }
 
 fun main() {

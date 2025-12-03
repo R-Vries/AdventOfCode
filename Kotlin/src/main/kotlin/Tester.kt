@@ -57,7 +57,7 @@ class Tester(
             else -> error("Invalid part: $part")
         }
 
-        if (actual == expected) {
+        if (actual.toLong() == expected.toLong()) {
             println("Part $part test: passed".toGreen())
         } else {
             println("Part $part test: FAILED (expected $expected, got $actual)".toRed())

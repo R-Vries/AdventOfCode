@@ -39,7 +39,7 @@ class Runner(
     fun run() {
         val input = io.readInput()
 
-        println("######## DAY ${"%02d".format(io.day)} ########".toBold())
+        println("########### DAY ${"%02d".format(io.day)} ###########".toBold())
 
         val t1 = time { solver.solvePart1(input) }
         println("Part 1: ${t1.result} (${t1.ms} ms)".toBold())
@@ -50,7 +50,7 @@ class Runner(
         println("------------------------".toBold())
         val total = t1.ms + t2.ms
         println("Total elapsed time: $total ms".toBold())
-        println("########################".toBold())
+        println("##############################".toBold())
 
         io.updateTimes(t1.ms, t2.ms)
     }
