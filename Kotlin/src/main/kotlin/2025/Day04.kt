@@ -1,62 +1,38 @@
 package aoc.`2025`
 
+import aoc.Grid
 import aoc.IOManager
 import aoc.Runner
 import aoc.Solver
 import aoc.Tester
 
-object Day04: Solver<List<MutableList<Char>>>() {
-    override fun parse(input: List<String>): List<MutableList<Char>> {
-        val result = mutableListOf<MutableList<Char>>()
-        result.add(MutableList(input[0].length + 2) { '.' })
-        for (line in input) {
-            val newLine = line.toCharArray().toMutableList()
-            newLine.add(0, '.')
-            newLine.add('.')
-            result.add(newLine)
-        }
-        result.add(MutableList(input[0].length + 2) { '.' })
-        return result
-    }
+object Day04: Solver<Grid<Char>>() {
+    override fun parse(input: List<String>): Grid<Char> = Grid(input)
 
-    override fun part1(data: List<MutableList<Char>>): Number {
-        var result = 0
-        for (i in 1 until data.size - 1) {
-            for (j in 1 until data[0].size - 1) {
-                if (data[i][j] == '.') continue
-                var count = 0
-                for (spot in listOf(data[i-1][j-1], data[i-1][j], data[i-1][j+1], data[i][j-1], data[i][j+1], data[i+1][j-1], data[i+1][j], data[i+1][j+1])) {
-                    if (spot == '@') count++
-                }
-                if (count < 4) result += 1
-            }
+    override fun part1(data: Grid<Char>): Int =
+        data.coordinates().count {coordinate ->
+            data[coordinate] != '.' &&
+            data.getNeighbours(coordinate)
+                .count { data[it] == '@' } < 4
         }
-        return result
-    }
 
-    override fun part2(data: List<MutableList<Char>>): Number {
+    override fun part2(data: Grid<Char>): Int {
         var result = 0
         var changed = true
         while (changed) {
             changed = false
-            for (i in 1 until data.size - 1) {
-                for (j in 1 until data[0].size - 1) {
-                    if (data[i][j] == '.') continue
-                    var count = 0
-                    for (spot in listOf(data[i-1][j-1], data[i-1][j], data[i-1][j+1], data[i][j-1], data[i][j+1], data[i+1][j-1], data[i+1][j], data[i+1][j+1])) {
-                        if (spot == '@') count++
-                    }
-                    if (count < 4) {
-                        result += 1
-                        data[i][j] = '.'
-                        changed = true
-                    }
+            for (coordinate in data.coordinates()) {
+                if (data[coordinate] == '.') continue
+                val count = data.getNeighbours(coordinate).count { data[it] == '@' }
+                if (count < 4) {
+                    result += 1
+                    data[coordinate] = '.'
+                    changed = true
                 }
             }
         }
         return result
     }
-
 }
 
 fun main() {
