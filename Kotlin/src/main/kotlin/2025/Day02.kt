@@ -1,11 +1,12 @@
 package aoc.`2025`
 
 import aoc.IOManager
+import aoc.Range
 import aoc.Runner
 import aoc.Solver
 import aoc.Tester
 
-object Day02: Solver<List<Day02.Range>>() {
+object Day02: Solver<List<Range>>() {
     override fun parse(input: List<String>): List<Range> =
         // input is one line
         input.first()
@@ -35,8 +36,6 @@ object Day02: Solver<List<Day02.Range>>() {
                 }
             }.sum()
         }
-
-    data class Range(val start: Long, val end: Long)
 }
 
 fun main() {
