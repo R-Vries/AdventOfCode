@@ -23,28 +23,30 @@ object Day05: Solver<Pair<List<Range>, List<Long>>>() {
         return Pair(ranges, values)
     }
 
-    override fun part1(data: Pair<List<Range>, List<Long>>): Number {
-        return data.second.count { id ->
+    override fun part1(data: Pair<List<Range>, List<Long>>) =
+        data.second.count { id ->
             data.first.any { range ->
                 range.contains(id)
             }
-        }
     }
 
     override fun part2(data: Pair<List<Range>, List<Long>>): Number {
-        val ranges = data.first.sortedBy { it.start }
-        val mergedRanges = mutableListOf(ranges[0])
-        for (r in ranges.drop(1)) {
-            val currentMax = mergedRanges.last().end
-            if (currentMax >= r.start) {
-                // overlap
-                mergedRanges[mergedRanges.size - 1] = Range(mergedRanges.last().start, maxOf(r.end, currentMax))
-            } else {
-                // no overlap
-                mergedRanges.add(r)
+        val merged = data.first
+            .sortedBy { it.start }
+            .fold(mutableListOf<Range>()) { acc, r ->
+                if (acc.isEmpty()) {
+                    acc.add(r)
+                } else {
+                    val last = acc.last()
+                    if (r.start <= last.end) {
+                        acc[acc.lastIndex] = Range(last.start, maxOf(last.end, r.end))
+                    } else {
+                        acc += r
+                    }
+                }
+                acc
             }
-        }
-        return mergedRanges.sumOf { it.end - it.start + 1}
+        return merged.sumOf { it.end - it.start + 1 }
     }
 }
 
