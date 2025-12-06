@@ -4,6 +4,9 @@ import aoc.IOManager
 import aoc.Runner
 import aoc.Solver
 
+/**
+ * Learned to make use of [forEach] and [take]
+ */
 object Day01: Solver<List<Move>>() {
     override fun parse(input: List<String>): List<Move> =
         input.map { line -> Move(line.take(1), line.substring(1).toInt()) }

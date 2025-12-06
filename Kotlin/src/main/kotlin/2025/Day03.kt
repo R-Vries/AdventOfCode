@@ -5,6 +5,9 @@ import aoc.Runner
 import aoc.Solver
 import aoc.Tester
 
+/**
+ * Learned to make use of [digitToInt] (NOT [toInt]) for [Char]s. Also learned [drop]
+ */
 object Day03: Solver<List<List<Int>>>() {
     override fun parse(input: List<String>): List<List<Int>> =
         input.map { it.map { i -> i.digitToInt() } }

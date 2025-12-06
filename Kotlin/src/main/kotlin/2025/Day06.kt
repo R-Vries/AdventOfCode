@@ -5,10 +5,14 @@ import aoc.Runner
 import aoc.Solver
 import aoc.Tester
 
+/**
+ * Learned to make use of [forEachIndexed], [reduce], [takeIf] and [toRegex]
+ */
 object Day06: Solver<List<Day06.Calculation>>() {
     override fun parse(input: List<String>): List<Calculation> {
         // finding columns with only spaces
-        val spaceIndices = findSpaces(input)
+        val spaceIndices = input[0].trim().indices
+            .filter { i -> input.all { line -> line[i] == ' '} }
         // add the correct amount of column lists
         val cols = input.first().trim().split("\\s+".toRegex()).size
         val result = MutableList(cols) { Calculation(mutableListOf(), null, 0)}
@@ -30,7 +34,6 @@ object Day06: Solver<List<Day06.Calculation>>() {
                 result[i].default = 1
             }
         }
-
         return result
     }
 
@@ -41,14 +44,13 @@ object Day06: Solver<List<Day06.Calculation>>() {
 
     override fun part2(data: List<Calculation>): Number =
         data.sumOf { calc ->
-            (0..calc.numbers[0].lastIndex).map { i ->
-                var verticalNumber = ""
-                for (n in calc.numbers) {
-                    if (n[i] == ' ') continue
-                    else verticalNumber += n[i]
+            (0..calc.numbers[0].lastIndex)
+                .map { i ->
+                    calc.numbers
+                        .map { n -> n[i].takeIf {it != ' '}}
+                        .joinToString("")
+                        .toLong()
                 }
-                verticalNumber.toLong()
-            }
                 .fold(calc.default, calc.operator!!)
         }
 
@@ -70,11 +72,6 @@ object Day06: Solver<List<Day06.Calculation>>() {
         result += s.substring(previous)
         return result
     }
-
-    private fun findSpaces(input: List<String>): List<Int> =
-        input[0].trim().withIndex()
-            .filter { (i, _) -> input.all { line -> line[i] == ' '} }
-            .map{ it.index }
 }
 
 fun main() {

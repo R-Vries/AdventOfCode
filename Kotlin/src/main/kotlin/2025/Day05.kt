@@ -6,6 +6,9 @@ import aoc.Runner
 import aoc.Solver
 import aoc.Tester
 
+/**
+ * Learned to use [joinToString], [sortedBy], and [fold]
+ */
 object Day05: Solver<Pair<List<Range>, List<Long>>>() {
     override fun parse(input: List<String>): Pair<List<Range>, List<Long>> {
         val (rangeLines, valueLines) = input

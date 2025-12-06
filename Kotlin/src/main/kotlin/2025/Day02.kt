@@ -6,6 +6,9 @@ import aoc.Runner
 import aoc.Solver
 import aoc.Tester
 
+/**
+ * Learned to make use of [sumOf], [let], [filter], [chunked], [all], and [drop]
+ */
 object Day02: Solver<List<Range>>() {
     override fun parse(input: List<String>): List<Range> =
         // input is one line

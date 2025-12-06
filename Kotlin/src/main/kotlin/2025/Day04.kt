@@ -6,6 +6,9 @@ import aoc.Runner
 import aoc.Solver
 import aoc.Tester
 
+/**
+ * Learned to use [count]
+ */
 object Day04: Solver<Grid<Char>>() {
     override fun parse(input: List<String>): Grid<Char> = Grid(input)
 
