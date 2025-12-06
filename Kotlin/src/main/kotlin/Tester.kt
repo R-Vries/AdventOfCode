@@ -56,11 +56,10 @@ class Tester(
             2 -> solver.solvePart2(input)
             else -> error("Invalid part: $part")
         }
-
-        if (actual.toLong() == expected.toLong()) {
-            println("Part $part test: passed".toGreen())
-        } else {
-            println("Part $part test: FAILED (expected $expected, got $actual)".toRed())
+        when (actual.toLong()) {
+            expected.toLong() -> println("Part $part test: passed".toGreen())
+            -1L -> println("Part $part not implemented, skipping...".toYellow())
+            else -> println("Part $part test: FAILED (expected $expected, got $actual)".toRed())
         }
     }
 }
