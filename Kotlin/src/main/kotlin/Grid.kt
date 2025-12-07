@@ -71,15 +71,6 @@ class Grid<T>(
             }
         }
 
-    fun indexedValues(): Sequence<Pair<Coordinate, T>> =
-        sequence {
-            for (i in 0 until rows) {
-                for (j in 0 until cols) {
-                    yield(Coordinate(i, j) to data[i][j])
-                }
-            }
-        }
-
     fun inBounds(i: Int, j: Int): Boolean =
         i in 0 until rows && j in 0 until cols
 

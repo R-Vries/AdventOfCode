@@ -13,14 +13,10 @@ object Day07: Solver<Grid<Char>>() {
     }
 
     override fun part1(data: Grid<Char>): Number {
-        val beams = ArrayDeque<Coordinate>()
         // find 'S'
-        for (c in data.coordinates()) {
-            if (data[c] == 'S') {
-                beams.add(Coordinate(c.i+1, c.j))
-                break
-            }
-        }
+        val start = data.coordinates().first { data[it] == 'S'}
+        val beams = ArrayDeque(listOf(start))
+
         var split = 0
         while (beams.isNotEmpty()) {
             val beam = beams.removeFirst()
@@ -40,10 +36,7 @@ object Day07: Solver<Grid<Char>>() {
     }
 
     override fun part2(data: Grid<Char>): Number {
-        val start = data.coordinates().first { c -> data[c] == 'S' }
-        val ways = Array(data.rows) { IntArray(data.cols) }
-        ways[start.i + 1][start.j] = 1
-        var result = 0
+        val ways = Array(data.rows) { LongArray(data.cols) }
 
         for (i in 0 until data.rows) {
             for (j in 0 until data.cols) {
@@ -55,22 +48,18 @@ object Day07: Solver<Grid<Char>>() {
                     '.' -> {
                         if (data.inBounds(i + 1, j)) {
                             ways[i + 1][j] += amount
-                        } else {
-                            result += amount
                         }
                     }
                     '^' -> {
                         if (data.inBounds(i + 1, j)) {
                             ways[i+1][j-1] += amount
                             ways[i+1][j+1] += amount
-                        } else {
-                            result += amount
                         }
                     }
                 }
             }
         }
-        return result
+        return ways.last().sum()
     }
 
 }
