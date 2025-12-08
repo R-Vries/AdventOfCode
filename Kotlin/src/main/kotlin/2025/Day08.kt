@@ -19,13 +19,7 @@ object Day08: Solver<List<Day08.Coordinate3D>>() {
         // create circuits
         val circuits = data.map { setOf(it) }.toMutableSet()
         pairs.take(10).forEach { pair ->
-            val set1 = circuits.first { it.contains(pair.first) }
-            val set2 = circuits.first { it.contains(pair.second) }
-            if (set1 != set2) {
-                circuits.remove(set1)
-                circuits.remove(set2)
-                circuits.add(set1.union(set2))
-            }
+            mergeSets(circuits, pair)
         }
         return circuits
             .sortedByDescending { it.size }
@@ -41,18 +35,25 @@ object Day08: Solver<List<Day08.Coordinate3D>>() {
         // create circuits
         val circuits = data.map { setOf(it) }.toMutableSet()
         pairs.forEach { pair ->
-            val set1 = circuits.first { it.contains(pair.first) }
-            val set2 = circuits.first { it.contains(pair.second) }
-            if (set1 != set2) {
-                circuits.remove(set1)
-                circuits.remove(set2)
-                circuits.add(set1.union(set2))
-            }
+            mergeSets(circuits, pair)
             if (circuits.size == 1) {
                 return pair.first.x * pair.second.x
             }
         }
         return -1
+    }
+
+    private fun mergeSets(
+        circuits: MutableSet<Set<Coordinate3D>>,
+        pair: Pair<Coordinate3D, Coordinate3D>
+    ) {
+        val set1 = circuits.first { it.contains(pair.first) }
+        val set2 = circuits.first { it.contains(pair.second) }
+        if (set1 != set2) {
+            circuits.remove(set1)
+            circuits.remove(set2)
+            circuits.add(set1.union(set2))
+        }
     }
 
     private fun createPairs(data: List<Coordinate3D>): MutableList<Pair<Coordinate3D, Coordinate3D>> {
@@ -82,5 +83,5 @@ fun main() {
     val tester = Tester(Day08, io, 40, 25272)
     val runner = Runner(Day08, io)
     tester.runTests()
-//    runner.run()
+    runner.run()
 }
