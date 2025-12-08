@@ -4,13 +4,12 @@ import aoc.IOManager
 import aoc.Runner
 import aoc.Solver
 import aoc.Tester
-import kotlin.math.sqrt
 
 object Day08: Solver<List<Day08.Coordinate3D>>() {
     override fun parse(input: List<String>): List<Coordinate3D> =
         input.map { line ->
             val split = line.split(",")
-            Coordinate3D(split[0].toInt(), split[1].toInt(), split[2].toInt())
+            Coordinate3D(split[0].toLong(), split[1].toLong(), split[2].toLong())
         }
 
     override fun part1(data: List<Coordinate3D>): Number {
@@ -26,32 +25,17 @@ object Day08: Solver<List<Day08.Coordinate3D>>() {
         }
         pairs.sortBy { distance(it.first, it.second) }
         // create circuits
-        val circuits = mutableSetOf<MutableSet<Coordinate3D>>()
-        var connected = 0
-        for (pair in pairs) {
-            var done = false
-            for (c in circuits) {
-                if (pair.first in c && pair.second in c) {
-                    done = true
-                    break
-                }
-                if (pair.first in c || pair.second in c) {
-                    c.add(pair.first)
-                    c.add(pair.second)
-                    done = true
-                    connected++
-                    break
-                }
-            }
-            if (!done) {
-                circuits.add(mutableSetOf(pair.first, pair.second))
-                connected++
-            }
-            if (connected == 1000) {
-                break
+        val circuits = data.map { setOf(it) }.toMutableSet()
+        pairs.take(1000).forEach { pair ->
+            val set1 = circuits.first { it.contains(pair.first) }
+            val set2 = circuits.first { it.contains(pair.second) }
+            if (set1 != set2) {
+                circuits.remove(set1)
+                circuits.remove(set2)
+                circuits.add(set1.union(set2))
             }
         }
-        // 94752000 & 17825 & 31752
+        // 94752000 & 17825 & 244921248 & 63648
         return circuits
             .sortedByDescending { it.size }
             .take(3)
@@ -60,22 +44,47 @@ object Day08: Solver<List<Day08.Coordinate3D>>() {
     }
 
     override fun part2(data: List<Coordinate3D>): Number {
-        TODO("Not yet implemented")
+        // create sorted list of pairs based on distance
+        val pairs: MutableList<Pair<Coordinate3D, Coordinate3D>> = mutableListOf()
+        for (i in 0..data.lastIndex) {
+            val s = data[i]
+
+            for (j in (i + 1)..data.lastIndex) {
+                val p = Pair(s, data[j])
+                pairs.add(p)
+            }
+        }
+        pairs.sortBy { distance(it.first, it.second) }
+        // create circuits
+        val circuits = data.map { setOf(it) }.toMutableSet()
+        pairs.forEach { pair ->
+            val set1 = circuits.first { it.contains(pair.first) }
+            val set2 = circuits.first { it.contains(pair.second) }
+            if (set1 != set2) {
+                circuits.remove(set1)
+                circuits.remove(set2)
+                circuits.add(set1.union(set2))
+            }
+            if (circuits.size == 1) {
+                return pair.first.x * pair.second.x
+            }
+        }
+        return -1
     }
 
-    data class Coordinate3D(val x: Int, val y: Int, val z: Int)
+    data class Coordinate3D(val x: Long, val y: Long, val z: Long)
 
-    fun distance(c1: Coordinate3D, c2: Coordinate3D): Int =
+    fun distance(c1: Coordinate3D, c2: Coordinate3D): Long =
         square(c1.x - c2.x) + square(c1.y - c2.y) + square(c1.z - c2.z)
 
-    fun square(n: Int) = n * n
+    fun square(n: Long) = n * n
 
 }
 
 fun main() {
     val io = IOManager(2025, 8)
-    val tester = Tester(Day08, io, 40, null)
+    val tester = Tester(Day08, io, 40, 25272)
     val runner = Runner(Day08, io)
-//    tester.runTests()
+    tester.runTests()
     runner.run()
 }
