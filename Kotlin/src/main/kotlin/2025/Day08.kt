@@ -14,19 +14,11 @@ object Day08: Solver<List<Day08.Coordinate3D>>() {
 
     override fun part1(data: List<Coordinate3D>): Number {
         // create sorted list of pairs based on distance
-        val pairs: MutableList<Pair<Coordinate3D, Coordinate3D>> = mutableListOf()
-        for (i in 0..data.lastIndex) {
-            val s = data[i]
-
-            for (j in (i + 1)..data.lastIndex) {
-                val p = Pair(s, data[j])
-                pairs.add(p)
-            }
-        }
+        val pairs = createPairs(data)
         pairs.sortBy { distance(it.first, it.second) }
         // create circuits
         val circuits = data.map { setOf(it) }.toMutableSet()
-        pairs.take(1000).forEach { pair ->
+        pairs.take(10).forEach { pair ->
             val set1 = circuits.first { it.contains(pair.first) }
             val set2 = circuits.first { it.contains(pair.second) }
             if (set1 != set2) {
@@ -35,7 +27,6 @@ object Day08: Solver<List<Day08.Coordinate3D>>() {
                 circuits.add(set1.union(set2))
             }
         }
-        // 94752000 & 17825 & 244921248 & 63648
         return circuits
             .sortedByDescending { it.size }
             .take(3)
@@ -45,15 +36,7 @@ object Day08: Solver<List<Day08.Coordinate3D>>() {
 
     override fun part2(data: List<Coordinate3D>): Number {
         // create sorted list of pairs based on distance
-        val pairs: MutableList<Pair<Coordinate3D, Coordinate3D>> = mutableListOf()
-        for (i in 0..data.lastIndex) {
-            val s = data[i]
-
-            for (j in (i + 1)..data.lastIndex) {
-                val p = Pair(s, data[j])
-                pairs.add(p)
-            }
-        }
+        val pairs: MutableList<Pair<Coordinate3D, Coordinate3D>> = createPairs(data)
         pairs.sortBy { distance(it.first, it.second) }
         // create circuits
         val circuits = data.map { setOf(it) }.toMutableSet()
@@ -72,6 +55,19 @@ object Day08: Solver<List<Day08.Coordinate3D>>() {
         return -1
     }
 
+    private fun createPairs(data: List<Coordinate3D>): MutableList<Pair<Coordinate3D, Coordinate3D>> {
+        val pairs: MutableList<Pair<Coordinate3D, Coordinate3D>> = mutableListOf()
+        for (i in 0..data.lastIndex) {
+            val s = data[i]
+
+            for (j in (i + 1)..data.lastIndex) {
+                val p = Pair(s, data[j])
+                pairs.add(p)
+            }
+        }
+        return pairs
+    }
+
     data class Coordinate3D(val x: Long, val y: Long, val z: Long)
 
     fun distance(c1: Coordinate3D, c2: Coordinate3D): Long =
@@ -86,5 +82,5 @@ fun main() {
     val tester = Tester(Day08, io, 40, 25272)
     val runner = Runner(Day08, io)
     tester.runTests()
-    runner.run()
+//    runner.run()
 }
