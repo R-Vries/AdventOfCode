@@ -41,7 +41,7 @@ class Tester(
     fun printInput() {
         val input = io.readTest()
         val parsed = solver.parse(input)
-        println("Parsed data: $parsed".toBold())
+        println("Parsed data:\n$parsed".toBold())
     }
 
     private fun runTest(part: Int, expected: Number?) {

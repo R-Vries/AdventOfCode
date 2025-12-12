@@ -92,6 +92,16 @@ class Grid<T>(
 
     override fun toString(): String =
         data.joinToString("\n") { row -> row.joinToString("") }
+
+    /**
+     * Find all occurences of an element in the grid
+     *
+     * @param element - the element to be found
+     * @return the list of coordinates where this value is found. Empty list if the grid does not contain it
+     */
+    fun find(element: T): List<Coordinate> {
+        return this.coordinates().filter { coordinate -> this[coordinate] == element }.toList()
+    }
 }
 
 /** Class representing a coordinate in a grid */

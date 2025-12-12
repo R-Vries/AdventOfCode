@@ -4,6 +4,7 @@ import aoc.IOManager
 import aoc.Runner
 import aoc.Solver
 import aoc.Tester
+import aoc.pairs
 
 object Day08: Solver<List<Day08.Coordinate3D>>() {
     override fun parse(input: List<String>): List<Coordinate3D> =
@@ -14,8 +15,7 @@ object Day08: Solver<List<Day08.Coordinate3D>>() {
 
     override fun part1(data: List<Coordinate3D>): Number {
         // create sorted list of pairs based on distance
-        val pairs = createPairs(data)
-        pairs.sortBy { distance(it.first, it.second) }
+        val pairs = pairs(data).sortedBy { distance(it.first, it.second) }
         // create circuits
         val circuits = data.map { setOf(it) }.toMutableSet()
         pairs.take(10).forEach { pair ->
