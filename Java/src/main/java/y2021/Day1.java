@@ -1,7 +1,6 @@
 package main.java.y2021;
 
-import jdk.jshell.spi.ExecutionControl;
-import main.java.Solver;
+import main.java.framework.Solver;
 
 import java.util.List;
 

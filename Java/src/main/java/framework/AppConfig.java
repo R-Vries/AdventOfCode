@@ -1,4 +1,4 @@
-package main.java;
+package main.java.framework;
 
 public record AppConfig(int year, int day, Number expectedPart1, Number expectedPart2) {
 

@@ -1,4 +1,4 @@
-package main.java;
+package main.java.framework;
 
 public final class SolverFactory {
 

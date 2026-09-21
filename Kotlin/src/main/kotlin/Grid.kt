@@ -115,3 +115,10 @@ data class Coordinate(val i: Int, val j: Int)
  */
 fun Grid(input: List<String>): Grid<Char> =
     Grid(input.map { line -> line.toMutableList() }.toMutableList())
+
+fun Grid(height: Int, width: Int, default: Char = '.'): Grid<Char> {
+    val l = MutableList(height) {
+        MutableList(width) { default}
+    }
+    return Grid(l)
+}
