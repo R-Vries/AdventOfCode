@@ -26,6 +26,14 @@ object Day09: Solver<List<Coordinate>>() {
 
 
     override fun part2(data: List<Coordinate>): Number {
+        // construct grid of the right size
+        val maxI = data.maxOf { it.i }
+        val maxJ = data.maxOf { it.j }
+        println(Grid(maxI, maxJ))
+        // populate with red tiles
+        // populate with green tiles
+        // ray casting to fill green tiles
+        // check all areas
         TODO("Not yet implemented")
     }
 
