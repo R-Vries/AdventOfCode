@@ -19,8 +19,12 @@ bin/
 ### Kotlin ###
 .kotlin
 
+### .NET ###
+obj/
+!CSharp/tests/
+
 ### Advent of Code ###
 cookie.txt
 inputs/
-tests/
+tests/*
 files/
